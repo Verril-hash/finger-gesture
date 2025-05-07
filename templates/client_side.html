@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finger Gesture Detection - Client Side</title>
+    <title>Client-Side Gesture Detection</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,16 +84,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Finger Gesture Detection</h1>
-        <p>Client-side implementation using TensorFlow.js and MediaPipe</p>
+        <h1>Client-Side Gesture Detection</h1>
+        <p id="status">Initializing...</p>
         
         <div class="video-container">
-            <video id="webcam" autoplay playsinline></video>
+            <video id="webcam" autoplay playsinline style="visibility: hidden;"></video>
             <canvas id="output-canvas" width="640" height="480"></canvas>
         </div>
         
-        <div class="status" id="status">Waiting for camera access...</div>
-        <div class="finger-count" id="finger-count">No hand detected</div>
+        <p id="finger-count">Fingers: 0</p>
         
         <button class="button" id="start-button">Start Detection</button>
         
@@ -109,16 +108,6 @@
         </div>
     </div>
 
-    <!-- Load TensorFlow.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
-    
-    <!-- Load Hand Pose Detection model -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection@2.0.0/dist/hand-pose-detection.min.js"></script>
-    
-    <!-- MediaPipe solution -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.min.js"></script>
-    
-    <!-- Load our script -->
-    <script src="{{ url_for('static', filename='js/client_side_implementation.js') }}"></script>
+    <script src="/static/js/client_side_implementation.js"></script>
 </body>
 </html>
