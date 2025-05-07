@@ -316,10 +316,12 @@ def client_side_js():
     """, mimetype='application/javascript')
 
 if __name__ == '__main__':
-    # Start the finger detection in a separate thread
-    t = threading.Thread(target=detect_fingers)
-    t.daemon = True
-    t.start()
+    # Check if the environment is not production
+    if os.environ.get('ENVIRONMENT') != 'production':
+        # Start the finger detection in a separate thread only in non-production environments
+        t = threading.Thread(target=detect_fingers)
+        t.daemon = True
+        t.start()
     
     # Start the Flask app
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=False)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)), debug=False)
