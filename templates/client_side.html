@@ -88,7 +88,7 @@
         <p id="status">Initializing...</p>
         
         <div class="video-container">
-            <video id="webcam" autoplay playsinline style="visibility: hidden;"></video>
+            <video id="webcam" autoplay playsinline></video>
             <canvas id="output-canvas" width="640" height="480"></canvas>
         </div>
         
@@ -108,6 +108,10 @@
         </div>
     </div>
 
-    <script src="/static/js/client_side_implementation.js"></script>
+    <!-- Load required libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection@2.0.0/dist/hand-pose-detection.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.min.js"></script>
+    <script src="{{ url_for('static', filename='js/client_side_implementation.js') }}"></script>
 </body>
 </html>
