@@ -35,6 +35,22 @@
             border-left: 4px solid #ffcc00;
             border-radius: 4px;
         }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -42,6 +58,10 @@
         <h1>Finger Gesture Detection</h1>
         <div>
             <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+        </div>
+        <div class="controls">
+            <button onclick="fetch('/start')">Start Gesture Detection</button>
+            <button onclick="fetch('/stop')">Stop Gesture Detection</button>
         </div>
         <div class="note">
             <p><strong>Note:</strong> This application works best when run locally with access to your webcam. 

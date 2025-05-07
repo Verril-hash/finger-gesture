@@ -11,6 +11,7 @@ app = Flask(__name__)
 # Global variables
 output_frame = None
 lock = threading.Lock()
+processing = False
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -26,6 +27,25 @@ mp_draw = mp.solutions.drawing_utils
 # Finger tip landmark indices
 finger_tips = [8, 12, 16, 20]  # Index, Middle, Ring, Pinky
 thumb_tip = 4
+
+def gesture_worker():
+    global processing
+    import cv2
+    import mediapipe as mp
+
+    cap = cv2.VideoCapture(0)
+    mp_hands = mp.solutions.hands.Hands()
+
+    while processing:
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        # Process frame here (gesture detection)
+        results = mp_hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        # You can log or store results somewhere here
+
+    cap.release()
 
 def detect_fingers():
     global output_frame, lock
@@ -123,6 +143,22 @@ def video_feed():
 @app.route('/client')
 def client_side():
     return render_template('client_side.html')
+
+@app.route('/start')
+def start_processing():
+    global processing
+    if not processing:
+        processing = True
+        thread = threading.Thread(target=gesture_worker)
+        thread.daemon = True
+        thread.start()
+    return "Gesture processing started."
+
+@app.route('/stop')
+def stop_processing():
+    global processing
+    processing = False
+    return "Gesture processing stopped."
 
 if __name__ == '__main__':
     # Start the finger detection in a separate thread
